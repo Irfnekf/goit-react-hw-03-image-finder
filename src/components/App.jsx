@@ -53,7 +53,6 @@ export class App extends Component {
   };
 
   showLargeImg = largeImageUrl => {
-    console.log(largeImageUrl);
     this.setState({
       largeImageUrl,
       showModal: true,

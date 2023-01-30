@@ -1,4 +1,5 @@
 import css from './modalImg.module.css';
+import PropTypes from 'prop-types';
 
 const ModalImg = ({ img }) => {
   return (
@@ -9,3 +10,7 @@ const ModalImg = ({ img }) => {
 };
 
 export default ModalImg;
+
+ModalImg.propTypes = {
+  img: PropTypes.string.isRequired,
+};
