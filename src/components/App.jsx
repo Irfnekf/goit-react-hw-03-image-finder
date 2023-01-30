@@ -5,6 +5,8 @@ import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
 import Button from './Button/Button';
 import Loader from './Loader/Loader';
+import Modal from './shared/components/Modal/Modal';
+import ModalImg from './ModalImg/ModalImg';
 
 import { searchImg } from './shared/imageApi';
 
@@ -15,6 +17,8 @@ export class App extends Component {
     loading: false,
     error: null,
     page: 1,
+    showModal: false,
+    largeImageUrl: '',
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -47,14 +51,33 @@ export class App extends Component {
     this.setState(({ page }) => ({ page: page + 1, loading: true }));
     this.setState({ loading: false });
   };
+
+  showLargeImg = largeImageUrl => {
+    console.log(largeImageUrl);
+    this.setState({
+      largeImageUrl,
+      showModal: true,
+    });
+  };
+  closeModal = () => {
+    this.setState({
+      largeImageUrl: '',
+      showModal: false,
+    });
+  };
   render() {
-    const { searchPost, onLoadMore } = this;
-    const { items, loading } = this.state;
+    const { searchPost, onLoadMore, showLargeImg, closeModal } = this;
+    const { items, loading, showModal, error, largeImageUrl } = this.state;
     return (
       <div className={css.App}>
         <Searchbar onSubmit={searchPost} />
-
-        <ImageGallery items={items} />
+        <ImageGallery items={items} showLargeImg={showLargeImg} />
+        {error && <p>Error</p>}
+        {showModal && (
+          <Modal onClose={closeModal}>
+            <ModalImg img={largeImageUrl} />
+          </Modal>
+        )}
         {Boolean(items.length) && <Button onClick={onLoadMore} />}
         {loading && <Loader />}
       </div>

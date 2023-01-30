@@ -37,6 +37,7 @@ class Searchbar extends Component {
           <input
             value={search}
             name="search"
+            placeholder="Search images and photos"
             className={css.SearchFormInput}
             type="text"
             autoComplete="off"
