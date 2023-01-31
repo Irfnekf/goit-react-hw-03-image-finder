@@ -44,12 +44,13 @@ export class App extends Component {
   }
 
   searchPost = ({ search }) => {
-    this.setState({ search, items: [], page: 1 });
+    if (search !== this.state.search) {
+      this.setState({ search, items: [], page: 1 });
+    }
   };
 
   onLoadMore = () => {
-    this.setState(({ page }) => ({ page: page + 1, loading: true }));
-    this.setState({ loading: false });
+    this.setState(({ page }) => ({ page: page + 1 }));
   };
 
   showLargeImg = largeImageUrl => {
